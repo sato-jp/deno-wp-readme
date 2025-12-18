@@ -6,7 +6,7 @@
  * @see https://github.com/fumikito/wp-readme (original PHP version)
  */
 
-import { join, dirname, basename } from "@std/path";
+import { basename, dirname, join } from "@std/path";
 
 /**
  * Find readme and return file path.
@@ -16,11 +16,14 @@ import { join, dirname, basename } from "@std/path";
  */
 export async function wpReadmeFind(targetDir: string = "."): Promise<string> {
   targetDir = targetDir.replace(/[/\\]$/, "");
-  
+
   try {
     const entries = Deno.readDir(targetDir);
     for await (const entry of entries) {
-      if (entry.isFile && (entry.name === "readme.md" || entry.name === "README.md")) {
+      if (
+        entry.isFile &&
+        (entry.name === "readme.md" || entry.name === "README.md")
+      ) {
         return join(targetDir, entry.name);
       }
     }
@@ -28,7 +31,7 @@ export async function wpReadmeFind(targetDir: string = "."): Promise<string> {
     // Directory doesn't exist or can't be read
     return "";
   }
-  
+
   return "";
 }
 
@@ -59,7 +62,10 @@ export async function wpReadmeReplace(targetFile: string): Promise<boolean> {
   }
 
   // Generate output file path
-  const newFileName = basename(targetFile).toLowerCase().replace(/\.md$/u, ".txt");
+  const newFileName = basename(targetFile).toLowerCase().replace(
+    /\.md$/u,
+    ".txt",
+  );
   const newFile = join(targetDir, newFileName);
 
   // Check if output file exists and is writable
@@ -113,9 +119,12 @@ export function wpReadmeConvertString(string: string): string {
   });
 
   // Format code.
-  string = string.replace(/```([^\n`]*?)\n(.*?)\n```/gus, (match, lang, code) => {
-    return `<pre>${code}</pre>`;
-  });
+  string = string.replace(
+    /```([^\n`]*?)\n(.*?)\n```/gus,
+    (match, lang, code) => {
+      return `<pre>${code}</pre>`;
+    },
+  );
 
   return string;
 }
@@ -128,30 +137,42 @@ export function wpReadmeConvertString(string: string): string {
  */
 export function wpReadmeVisibility(string: string): string {
   // Remove github comment
-  string = string.replace(/<!-- only:github\/ -->(.*?)<!-- \/only:github -->/gus, "");
+  string = string.replace(
+    /<!-- only:github\/ -->(.*?)<!-- \/only:github -->/gus,
+    "",
+  );
 
   // Display WordPress comment.
-  string = string.replace(/<!-- only:wp>(.*?)<\/only:wp -->/gus, (match, content) => {
-    return content.trim();
-  });
+  string = string.replace(
+    /<!-- only:wp>(.*?)<\/only:wp -->/gus,
+    (match, content) => {
+      return content.trim();
+    },
+  );
 
   // Handle env variable.
   const env = Deno.env.get("WP_README_ENV");
   if (env) {
     // Handle <!-- only:env>...</only:env -->
-    const onlyPattern = new RegExp(`<!-- only:${env}>(.*?)<\\/only:${env} -->`, "gus");
+    const onlyPattern = new RegExp(
+      `<!-- only:${env}>(.*?)<\\/only:${env} -->`,
+      "gus",
+    );
     string = string.replace(onlyPattern, (match, content) => {
       return content.trim();
     });
 
     // Handle <!-- not:env/ -->...</not:env -->
-    string = string.replace(/<!-- not:([^/]+)\/ -->(.*?)<!-- \/not:[^ ]+ -->/gus, (match, envName, content) => {
-      if (env === envName) {
-        return "";
-      } else {
-        return content.trim();
-      }
-    });
+    string = string.replace(
+      /<!-- not:([^/]+)\/ -->(.*?)<!-- \/not:[^ ]+ -->/gus,
+      (match, envName, content) => {
+        if (env === envName) {
+          return "";
+        } else {
+          return content.trim();
+        }
+      },
+    );
   }
 
   return string;
@@ -161,7 +182,7 @@ export function wpReadmeVisibility(string: string): string {
 if (import.meta.main) {
   const targetDir = Deno.env.get("WP_README_DIR") || ".";
   const file = await wpReadmeFind(targetDir);
-  
+
   try {
     // File not found.
     if (!file) {
@@ -172,8 +193,10 @@ if (import.meta.main) {
       console.log("readme.txt generated successfully!");
     }
   } catch (error) {
-    console.error("[ERROR]", error instanceof Error ? error.message : String(error));
+    console.error(
+      "[ERROR]",
+      error instanceof Error ? error.message : String(error),
+    );
     Deno.exit(1);
   }
 }
-

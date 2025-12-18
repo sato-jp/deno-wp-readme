@@ -2,12 +2,14 @@
 
 Convert a GitHub README.md into a WordPress plugin readme.txt
 
-> **Note**: This is a Deno/TypeScript port of the original [wp-readme](https://github.com/fumikito/wp-readme) project.
+> **Note**: This is a Deno/TypeScript port of the original
+> [wp-readme](https://github.com/fumikito/wp-readme) project.
 
 ## Concept
 
-Many WordPress plugin developers host their code on GitHub.
-But [WordPress' official repository](https://wordpress.org/plugins/) hosts plugin file in SVN repos.
+Many WordPress plugin developers host their code on GitHub. But
+[WordPress' official repository](https://wordpress.org/plugins/) hosts plugin
+file in SVN repos.
 
 | Readme         | WordPress                                                 | GitHub                                                                    |
 | -------------- | --------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -16,8 +18,10 @@ But [WordPress' official repository](https://wordpress.org/plugins/) hosts plugi
 
 They are almost same, but little bit different.
 
-This Deno/TypeScript script converts GitHub's `README.md` into a WordPress `readme.txt` file.
-This allows you to maintain a single source of documentation for both GitHub and WordPress.org, eliminating the need to manage two separate files.
+This Deno/TypeScript script converts GitHub's `README.md` into a WordPress
+`readme.txt` file. This allows you to maintain a single source of documentation
+for both GitHub and WordPress.org, eliminating the need to manage two separate
+files.
 
 ## Requirements
 
@@ -65,7 +69,8 @@ jobs:
 
 ### Control Visibility
 
-By surrounding sections with special HTML comments, you can control their visibility.
+By surrounding sections with special HTML comments, you can control their
+visibility.
 
 ```
 <!-- only:github/ -->
@@ -80,7 +85,9 @@ Be careful with comment format.
 </only:wp -->
 ```
 
-If you convert 1 repo to multiple delivery type(e.g. deliver the light version on WordPress.org and the pro version on your site), you can use environment variable `WP_README_ENV`.
+If you convert 1 repo to multiple delivery type(e.g. deliver the light version
+on WordPress.org and the pro version on your site), you can use environment
+variable `WP_README_ENV`.
 
 ```
 <!-- only:production>
@@ -100,7 +107,8 @@ deno run --allow-read --allow-write --allow-env wp-readme.ts
 
 ### Custom Directory
 
-You can specify a custom directory using the `WP_README_DIR` environment variable:
+You can specify a custom directory using the `WP_README_DIR` environment
+variable:
 
 ```bash
 export WP_README_DIR=/path/to/your/plugin

@@ -8,9 +8,8 @@
     "test:watch": "deno test --allow-read --allow-write --allow-env --watch tests/wp_readme_test.ts"
   },
   "fmt": {
-    "files": {
-      "include": ["*.ts", "tests/**/*.ts"]
-    }
+    "include": ["*.ts", "tests/**/*.ts", "*.yml", "*.md"],
+    "exclude": ["tests/document/**"]
   },
   "lint": {
     "files": {

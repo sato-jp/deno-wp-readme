@@ -1,9 +1,9 @@
 import { assertEquals } from "@std/assert";
 import { join } from "@std/path";
 import {
+  wpReadmeConvertString,
   wpReadmeFind,
   wpReadmeVisibility,
-  wpReadmeConvertString,
 } from "../wp-readme.ts";
 
 Deno.test("wpReadmeFind - finds README.md in document directory", async () => {
@@ -68,9 +68,12 @@ Deno.test("wpReadmeConvertString - converts headers correctly", () => {
 ## Subtitle
 ### Sub-subtitle`;
   const result = wpReadmeConvertString(input);
-  assertEquals(result, `=== Title ===
+  assertEquals(
+    result,
+    `=== Title ===
 == Subtitle ==
-= Sub-subtitle =`);
+= Sub-subtitle =`,
+  );
 });
 
 Deno.test("wpReadmeConvertString - converts code blocks", () => {
@@ -83,19 +86,18 @@ Deno.test("wpReadmeConvertString - full conversion test", async () => {
   const testDir = join(Deno.cwd(), "tests", "document");
   const readmePath = join(testDir, "README.md");
   const expectedPath = join(testDir, "readme-sample.txt");
-  
+
   const readmeContent = await Deno.readTextFile(readmePath);
   const expectedContent = await Deno.readTextFile(expectedPath);
-  
+
   const converted = wpReadmeConvertString(readmeContent);
-  
+
   // Compare line by line, ignoring whitespace differences
-  const convertedLines = converted.split("\n").map(l => l.trimEnd());
-  const expectedLines = expectedContent.split("\n").map(l => l.trimEnd());
-  
+  const convertedLines = converted.split("\n").map((l) => l.trimEnd());
+  const expectedLines = expectedContent.split("\n").map((l) => l.trimEnd());
+
   assertEquals(convertedLines.length, expectedLines.length);
   for (let i = 0; i < convertedLines.length; i++) {
     assertEquals(convertedLines[i], expectedLines[i], `Line ${i + 1} mismatch`);
   }
 });
-
