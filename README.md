@@ -45,7 +45,7 @@ wp-readme
 ### Remote execution
 
 ```bash
-deno run --allow-read --allow-write --allow-env https://raw.githubusercontent.com/your-username/deno-wp-readme/main/wp-readme.ts
+deno run --allow-read --allow-write --allow-env https://raw.githubusercontent.com/sato-jp/deno-wp-readme/master/wp-readme.ts
 ```
 
 ### GitHub Actions
@@ -57,10 +57,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@v1
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: v2.6.0
       - name: Generate readme.txt
         run: deno run --allow-read --allow-write --allow-env wp-readme.ts
 ```
