@@ -1,0 +1,21 @@
+{
+  "imports": {
+    "@std/assert": "jsr:@std/assert",
+    "@std/path": "jsr:@std/path"
+  },
+  "tasks": {
+    "test": "deno test --allow-read --allow-write --allow-env tests/wp_readme_test.ts",
+    "test:watch": "deno test --allow-read --allow-write --allow-env --watch tests/wp_readme_test.ts"
+  },
+  "fmt": {
+    "files": {
+      "include": ["*.ts", "tests/**/*.ts"]
+    }
+  },
+  "lint": {
+    "files": {
+      "include": ["*.ts", "tests/**/*.ts"]
+    }
+  }
+}
+

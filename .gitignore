@@ -1,0 +1,10 @@
+# Generated files
+readme.txt
+
+# PHP (legacy)
+/vendor/
+composer.lock
+
+# Deno
+# Note: deno.lock is typically committed, but you can uncomment if needed
+# deno.lock
