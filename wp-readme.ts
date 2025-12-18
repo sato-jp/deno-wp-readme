@@ -27,7 +27,7 @@ export async function wpReadmeFind(targetDir: string = "."): Promise<string> {
         return join(targetDir, entry.name);
       }
     }
-  } catch (error) {
+  } catch (_error) {
     // Directory doesn't exist or can't be read
     return "";
   }
@@ -111,7 +111,7 @@ export function wpReadmeConvertString(string: string): string {
   string = wpReadmeVisibility(string);
 
   // Replace headers.
-  string = string.replace(/^(#+)\s+(.*)$/gmu, (match, hashes, text) => {
+  string = string.replace(/^(#+)\s+(.*)$/gmu, (_match, hashes, text) => {
     const length = hashes.length;
     const sepLength = 3 - (length - 1);
     const sep = "=".repeat(sepLength);
@@ -121,7 +121,7 @@ export function wpReadmeConvertString(string: string): string {
   // Format code.
   string = string.replace(
     /```([^\n`]*?)\n(.*?)\n```/gus,
-    (match, lang, code) => {
+    (_match, _lang, code) => {
       return `<pre>${code}</pre>`;
     },
   );
@@ -145,7 +145,7 @@ export function wpReadmeVisibility(string: string): string {
   // Display WordPress comment.
   string = string.replace(
     /<!-- only:wp>(.*?)<\/only:wp -->/gus,
-    (match, content) => {
+    (_match, content) => {
       return content.trim();
     },
   );
@@ -158,14 +158,14 @@ export function wpReadmeVisibility(string: string): string {
       `<!-- only:${env}>(.*?)<\\/only:${env} -->`,
       "gus",
     );
-    string = string.replace(onlyPattern, (match, content) => {
+    string = string.replace(onlyPattern, (_match, content) => {
       return content.trim();
     });
 
     // Handle <!-- not:env/ -->...</not:env -->
     string = string.replace(
       /<!-- not:([^/]+)\/ -->(.*?)<!-- \/not:[^ ]+ -->/gus,
-      (match, envName, content) => {
+      (_match, envName, content) => {
         if (env === envName) {
           return "";
         } else {
