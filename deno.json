@@ -19,7 +19,9 @@
   },
   "tasks": {
     "test": "deno test --allow-read --allow-write --allow-env tests/wp_readme_test.ts",
-    "test:watch": "deno test --allow-read --allow-write --allow-env --watch tests/wp_readme_test.ts"
+    "test:watch": "deno test --allow-read --allow-write --allow-env --watch tests/wp_readme_test.ts",
+    "publish:check": "deno publish --dry-run",
+    "publish": "deno publish"
   },
   "fmt": {
     "include": ["*.ts", "tests/**/*.ts", "*.yml", "*.md"],

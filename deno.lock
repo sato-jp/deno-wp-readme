@@ -1,10 +1,10 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@std/assert@*": "1.0.15",
+    "jsr:@std/assert@1": "1.0.15",
     "jsr:@std/internal@^1.0.10": "1.0.12",
     "jsr:@std/internal@^1.0.12": "1.0.12",
-    "jsr:@std/path@*": "1.1.2"
+    "jsr:@std/path@1": "1.1.2"
   },
   "jsr": {
     "@std/assert@1.0.15": {
@@ -136,8 +136,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@*",
-      "jsr:@std/path@*"
+      "jsr:@std/assert@1",
+      "jsr:@std/path@1"
     ]
   }
 }
