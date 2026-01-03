@@ -48,5 +48,5 @@ jobs:
           echo "github.event_name: ${{ github.event_name }}"
 
       - name: Publish JSR
-        if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+        if: github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
         run: deno publish --allow-slow-types
