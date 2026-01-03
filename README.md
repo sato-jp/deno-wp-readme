@@ -6,17 +6,19 @@ Convert a GitHub README.md into a WordPress plugin readme.txt
 
 ## What is this?
 
-When developing WordPress plugins, you use `README.md` on GitHub, but WordPress.org's official repository requires `readme.txt`. This tool automatically converts GitHub's `README.md` into WordPress's `readme.txt` format.
+When developing WordPress plugins, you use `README.md` on GitHub, but WordPress.org's official repository requires
+`readme.txt`. This tool automatically converts GitHub's `README.md` into WordPress's `readme.txt` format.
 
 ### Differences
 
-| Item         | WordPress.org                                    | GitHub                                    |
-| ------------ | ------------------------------------------------ | ----------------------------------------- |
-| File Extension | `.txt`                                           | `.md`                                     |
-| Format       | WordPress-style Markdown                        | GitHub-style Markdown                     |
-| Header Format | `=== Title ===` (uses equals signs)              | `# Title` (uses hash)                     |
+| Item           | WordPress.org                       | GitHub                |
+| -------------- | ----------------------------------- | --------------------- |
+| File Extension | `.txt`                              | `.md`                 |
+| Format         | WordPress-style Markdown            | GitHub-style Markdown |
+| Header Format  | `=== Title ===` (uses equals signs) | `# Title` (uses hash) |
 
-By using this tool, you can generate documentation for both GitHub and WordPress.org by **managing just one `README.md` file**.
+By using this tool, you can generate documentation for both GitHub and WordPress.org by **managing just one `README.md`
+file**.
 
 ## Requirements
 
@@ -50,21 +52,16 @@ This automatically adds the import to `deno.json`:
 
 ```json
 {
-  "imports": {
-    "@pixelium/wp-readme": "jsr:@pixelium/wp-readme@^2.0.0"
-  }
+	"imports": {
+		"@pixelium/wp-readme": "jsr:@pixelium/wp-readme@^2.0.0"
+	}
 }
 ```
 
 Use in your code:
 
 ```typescript
-import {
-	wpReadmeFind,
-	wpReadmeReplace,
-	wpReadmeConvertString,
-	wpReadmeVisibility,
-} from "@pixelium/wp-readme";
+import { wpReadmeConvertString, wpReadmeFind, wpReadmeReplace, wpReadmeVisibility } from "@pixelium/wp-readme";
 
 // Find and convert README.md
 const readmePath = await wpReadmeFind(".");
@@ -79,10 +76,7 @@ if (readmePath) {
 To import directly without using `deno.json`:
 
 ```typescript
-import {
-	wpReadmeFind,
-	wpReadmeReplace,
-} from "jsr:@pixelium/wp-readme";
+import { wpReadmeFind, wpReadmeReplace } from "jsr:@pixelium/wp-readme";
 
 // Example usage
 const readmePath = await wpReadmeFind("./my-plugin");
@@ -127,7 +121,9 @@ Visible in GitHub's `README.md` but removed from WordPress's `readme.txt`:
 
 ```markdown
 <!-- only:github/ -->
+
 This section is visible only on GitHub.
+
 <!-- /only:github -->
 ```
 
@@ -143,7 +139,8 @@ This section is visible only on WordPress.org.
 
 #### Conditional Branching with Environment Variables
 
-When distributing multiple versions from the same repository (e.g., free version on WordPress.org, pro version on your site):
+When distributing multiple versions from the same repository (e.g., free version on WordPress.org, pro version on your
+site):
 
 ```markdown
 <!-- only:production>
@@ -151,7 +148,9 @@ This section will be revealed only if the environment is 'production'.
 </only:production -->
 
 <!-- not:production/ -->
+
 This text should be removed if the environment is 'production'
+
 <!-- /not:production -->
 ```
 
